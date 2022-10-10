@@ -28,7 +28,8 @@ const Tipo = ({tipos}) =>{
     `;
 
     const Texto = styled.p`
-        padding: 5px; 
+        padding: 7px; 
+        border-radius: 3px; 
         text-align: center; 
         font-size: 14px;
         font-weight: 700; 

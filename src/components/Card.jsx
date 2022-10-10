@@ -59,7 +59,7 @@ const Card = ({url}) => {
 
     return (
         <Contenedor>
-            <Img src={imagen} />
+            <Img lazy="loading" src={imagen} />
             <ContenedorCaracteristicas>
                 <NombrePokemon> {`#${id} ${nombre}`} </NombrePokemon>
                 <Tipo tipos={tipos}/>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'; 
 import Card from "./components/Card"; 
 import styled from "@emotion/styled";
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'; 
+import { FaChevronLeft, FaChevronRight, FaSearch } from 'react-icons/fa'; 
 
 function App() {
 
@@ -35,15 +35,56 @@ function App() {
 
   const Nav = styled.nav`
     display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
+    flex-direction: column; 
     padding: 0 5%; 
-    margin-bottom: 30px;  
+    margin-bottom: 30px; 
+    gap: 20px;  
   `;
 
   const H1 = styled.h1`
     font-size: 30px; 
-    margin: 10px 0; 
+    margin: 15px 0; 
+  `;
+
+  const Form = styled.form`
+    align-self: center; 
+    display: flex; 
+    
+    @media(min-width: 455px){
+      width: 70%; 
+    }
+    @media(min-width: 900px){
+      width: 60%; 
+    }
+  `;
+
+  const Input = styled.input`
+    width: 100%; 
+    outline: none; 
+    padding: 15px; 
+    border: none;
+    border-radius: 7px 0 0 7px; 
+
+    &:focus{
+      color: black; 
+    }
+  `;
+
+  const ButtonSubmit = styled.button`
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    border-radius: 0 7px 7px 0; 
+    background-color: #4034AA; 
+    color: #FFF; 
+    border: none; 
+    padding: 15px; 
+    font-size: 16px; 
+    font-weight: 700; 
+
+    &:hover{
+      background-color: #342B87; 
+    }
   `;
 
   const Contenedor = styled.div`
@@ -73,12 +114,23 @@ function App() {
     padding: 15px; 
     font-size: 16px; 
     font-weight: 700; 
+
+    &:hover{
+      background-color: #342B87; 
+    }
   `;
 
   return (
     <>
       <Nav>
         <H1> Pokedex </H1>
+        <Form>
+          <Input type="text" placeholder="Buscar pokemon" />
+          <ButtonSubmit type="submit">
+            <FaSearch />
+          </ButtonSubmit>
+        </Form>
+
       </Nav>
       <Contenedor>
         {pokemones.map((pokemon, index) => (
