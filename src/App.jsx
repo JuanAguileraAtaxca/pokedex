@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'; 
 import Card from "./components/Card"; 
 import styled from "@emotion/styled";
-import { FaChevronLeft, FaChevronRight, FaSearch } from 'react-icons/fa'; 
+import { FaChevronLeft, FaChevronRight, FaSearch, FaAngleDoubleLeft, FaAngleDoubleRight } from 'react-icons/fa'; 
 
 function App() {
 
@@ -31,6 +31,16 @@ function App() {
     i = i < 10 ? i += 1 : i; 
     setContador(i);
     setNumero(numero + 15);
+  }
+
+  const inicio = () => {
+    setContador(1);
+    setNumero(0); 
+  }
+
+  const final = () => {
+    setContador(10);
+    setNumero(135); 
   }
 
   const Nav = styled.nav`
@@ -92,15 +102,19 @@ function App() {
     width: 80%; 
     margin: 0 auto 40px; 
     display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
     gap: 20px; 
+
+    @media(min-width: 380px){
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+
+    }
   `;
 
   const ContenedorBotones = styled.div`
     margin-bottom: 20px; 
     display: flex; 
     justify-content: center; 
-    gap: 20px; 
+    gap: 10px; 
   `;
 
   const Button = styled.button`
@@ -138,8 +152,10 @@ function App() {
         ))}
       </Contenedor>
       <ContenedorBotones>
+        <Button disabled={contador == 1 ? true :false} onClick={() => inicio()} > <FaAngleDoubleLeft /> </Button>
         <Button disabled={contador == 1 ? true :false} onClick={() => previous()}> <FaChevronLeft /> </Button>
         <Button disabled={contador == 10 ? true :false} onClick={() => next()}> <FaChevronRight /> </Button>
+        <Button disabled={contador == 10 ? true :false} onClick={() => final()}> <FaAngleDoubleRight /> </Button>
       </ContenedorBotones>
     </>
   ); 

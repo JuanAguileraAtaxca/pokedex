@@ -32,6 +32,7 @@ const Card = ({url}) => {
 
     const Contenedor = styled.div`
         background-color: #F9F9F9; 
+        width: 100%; 
         border-radius: 10px; 
         display: flex; 
         flex-direction: row-reverse; 
