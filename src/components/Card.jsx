@@ -1,4 +1,5 @@
 import {useState, useEffect} from "react"; 
+import {peticionAPI} from "../helpers/index";
 import Tipo from "./Tipo";
 import styled from "@emotion/styled";
 
@@ -8,9 +9,8 @@ const Card = ({url}) => {
     const {id, nombre, imagen, tipos} = pokemon; 
 
     useEffect(() => {
-        const peticionAPI = async () => {
-            const respuesta = await fetch(url); 
-            const resultado = await respuesta.json();
+        const obtencionDatos = async () => {
+            const resultado = await peticionAPI(url); 
            
             const nuevoPokemon = {
                 id: resultado.id, 
@@ -24,13 +24,15 @@ const Card = ({url}) => {
                 }),
                 tipos: resultado.types.map(type => type.type.name),
             }
+            
             setPokemon(nuevoPokemon); 
         }
 
-        peticionAPI(); 
+        obtencionDatos(); 
     }, []); 
 
     const Contenedor = styled.div`
+        position: relative; 
         background-color: #F9F9F9; 
         width: 100%; 
         border-radius: 10px; 
@@ -38,6 +40,11 @@ const Card = ({url}) => {
         flex-direction: row-reverse; 
         justify-content: space-between; 
         padding: 20px;
+        transition: background-color 0.5s ease-in; 
+
+        &:hover{
+            background-color: #F1F3F3; 
+        }
     `;
 
     const ContenedorCaracteristicas = styled.div`
@@ -50,19 +57,47 @@ const Card = ({url}) => {
     const Img = styled.img`
         width: 90px; 
         height: 90px; 
+        border: none; 
     `;
 
     const NombrePokemon = styled.p` 
-        align-self: center; 
+        text-align: center; 
         font-weight: 700; 
         font-size: 20px; 
+
+        @media(max-width: 320px){
+            font-size: 14px; 
+        }
+    `;
+
+    const ImgCarga = styled.div`
+        width: 90px; 
+        height: 90px; 
+        border: none;
+        background-color: #D6DBDF;  
+    `;
+
+    const NombreCarga = styled.div`
+        width: 110px; 
+        background-color: #D0D3D4; 
+        height: 15px; 
+        margin-bottom: 15px; 
+
     `;
 
     return (
         <Contenedor>
-            <Img lazy="loading" src={imagen} />
+            {imagen ? (<Img lazy="loading" src={imagen} />):( <ImgCarga></ImgCarga>)}
             <ContenedorCaracteristicas>
-                <NombrePokemon> {`#${id} ${nombre}`} </NombrePokemon>
+                {id && nombre ? (
+                    <NombrePokemon> {`#${id} ${nombre}`} </NombrePokemon>
+                ) : (
+                    <div>
+                        <NombreCarga></NombreCarga>
+                        <NombreCarga></NombreCarga>
+                    </div>
+                    
+                )}
                 <Tipo tipos={tipos}/>
             </ContenedorCaracteristicas>
         </Contenedor>
