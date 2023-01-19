@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react'; 
-import NavBar from './components/NavBar'; 
 import Card from "./components/Card";
+import NavBar from './components/NavBar';
 import ButtonContainer from './components/ButtonContainer'; 
 import { peticionAPI } from './helpers'; 
 import styled from "@emotion/styled";
 
 function App() {
-
-  const [pokemones, setPokemones] = useState([]); 
   const [numero, setNumero] = useState(0);
   const [nombrePokemon, setNombrePokemon] = useState(''); 
+  const [pokemones, setPokemones] = useState([]); 
 
   useEffect(() => {
     obtencionDatos(); 
@@ -35,11 +34,10 @@ function App() {
   return (
     <>
       <NavBar 
-        encabezado="pokedex" 
-        nombrePokemon={nombrePokemon} 
+        encabezado="pokedex"
+        nombrePokemon={nombrePokemon}
         setNombrePokemon={setNombrePokemon}
       />
-      
       <Contenedor>
         {pokemones?.map((pokemon, index) => (
           <Card key={index} url={pokemon.url}/>
