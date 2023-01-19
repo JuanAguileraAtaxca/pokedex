@@ -1,0 +1,44 @@
+.navbar{
+    padding: 0 5%; 
+}
+
+.navbar__h1{
+    font-size: 30px;
+    font-weight: 700; 
+}
+
+.navbar__form{
+    width: 85%; 
+}
+
+@media(min-width: 700px){
+    .navbar__form{
+        width: 60%; 
+    }
+}
+
+@media(min-width: 1441px){
+    .navbar__form{
+        width: 850px; 
+    }
+}
+
+.navbar__form-input{
+    font-family: 'Quicksand', sans-serif;
+    outline: none; 
+    border: none; 
+    border-radius: 6px 0 0 6px; 
+    width: 100%; 
+}
+.navbar__form-input:focus{color: black; }
+
+.navbar__form-button{
+    border: none;
+    background-color: #4034AA; 
+    color: white; 
+    border-radius: 0 6px 6px 0; 
+}
+
+.navbar__form-button:hover{
+    background-color: #342B87; 
+}

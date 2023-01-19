@@ -39,7 +39,9 @@ const Tipo = ({tipos}) =>{
     return (
         <Contenedor>
             {tipos?.map((tipo, index) => (
-                <Texto key={index} style={{backgroundColor: colores[tipo]}}> {tipo} </Texto>
+                <Texto key={index} style={{backgroundColor: colores[tipo]}}> 
+                    {tipo} 
+                </Texto>
             ))}
         </Contenedor>
     );

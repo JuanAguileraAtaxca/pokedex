@@ -1,16 +1,21 @@
+import {useState} from 'react'; 
 import styled from '@emotion/styled';
 import {FaSearch} from 'react-icons/fa'; 
 
-const SearchBar = () => {
+const SearchBar = ({nombrePokemon, setNombrePokemon}) => {
+    const [nombre, setNombre] = useState(''); 
+    const hadleSubmit = (e) =>{
+        e.preventDefault(); 
+    }
     const Form = styled.form`
         align-self: center; 
         display: flex; 
         
         @media(min-width: 455px){
-        width: 70%; 
+            width: 70%; 
         }
         @media(min-width: 900px){
-        width: 60%; 
+            width: 60%; 
         }
   `;
 
@@ -23,7 +28,7 @@ const SearchBar = () => {
         border-radius: 7px 0 0 7px; 
 
         &:focus{
-        color: black; 
+            color: black; 
         }
     `;
 
@@ -40,13 +45,15 @@ const SearchBar = () => {
         font-weight: 700; 
 
         &:hover{
-        background-color: #342B87; 
+            background-color: #342B87; 
         }
     `;
 
+   
+
     return (
-        <Form>
-            <Input type="search" placeholder="Buscar pokemon" />
+        <Form onSubmit={hadleSubmit}>
+            <Input type="text" value={nombre} onChange={e => setNombre(e.target.value)} placeholder="Buscar pokemon" />
             <ButtonSubmit type="submit"> <FaSearch /> </ButtonSubmit>
         </Form>
     ); 

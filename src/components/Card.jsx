@@ -11,21 +11,21 @@ const Card = ({url}) => {
     useEffect(() => {
         const obtencionDatos = async () => {
             const resultado = await peticionAPI(url); 
-           
-            const nuevoPokemon = {
-                id: resultado.id, 
-                nombre: resultado.name, 
-                imagen:resultado.sprites.front_default,
-                estadisticas: resultado.stats.map(stat => {
-                    return {
-                        estado: stat.base_stat,
-                        nombre: stat.stat.name
-                    }
-                }),
-                tipos: resultado.types.map(type => type.type.name),
-            }
             
-            setPokemon(nuevoPokemon); 
+            setPokemon(
+                {
+                    id: resultado.id, 
+                    nombre: resultado.name, 
+                    imagen:resultado.sprites.front_default,
+                    estadisticas: resultado.stats.map(stat => {
+                        return {
+                            estado: stat.base_stat,
+                            nombre: stat.stat.name
+                        }
+                    }),
+                    tipos: resultado.types.map(type => type.type.name),
+                }
+            ); 
         }
 
         obtencionDatos(); 
@@ -90,13 +90,12 @@ const Card = ({url}) => {
             {imagen ? (<Img lazy="loading" src={imagen} />):( <ImgCarga></ImgCarga>)}
             <ContenedorCaracteristicas>
                 {id && nombre ? (
-                    <NombrePokemon> {`#${id} ${nombre}`} </NombrePokemon>
+                    <NombrePokemon> {`# ${id} ${nombre}`} </NombrePokemon>
                 ) : (
-                    <div>
+                    <>
                         <NombreCarga></NombreCarga>
                         <NombreCarga></NombreCarga>
-                    </div>
-                    
+                    </>
                 )}
                 <Tipo tipos={tipos}/>
             </ContenedorCaracteristicas>
