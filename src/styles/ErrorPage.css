@@ -1,0 +1,28 @@
+@keyframes parpadeo {
+    from{
+        transform: scale(0.8);
+    }
+    to{
+        transform: scale(1);
+    }
+}
+
+.bg-color-error-page{background-color: #010737;}
+.bg-color-white{background-color: white;}
+.bg-color-white-20{background-color: rgb(255 255 255 / 0.2);}
+.bg-color-white-40{background-color: rgb(255 255 255 / 0.4);}
+.bg-color-white-80{background-color: rgb(255 255 255 / 0.8);}
+.bg-color-white-80{background-color: rgb(255 255 255 / 0.8);}
+.bg-color-white-70{background-color: rgb(255 255 255 / 0.7);}
+
+
+.error-star{
+    width: 15px; 
+    height: 15px; 
+    border-radius: 50%;
+    animation: parpadeo 1.5s ease-in-out infinite;
+}
+
+/*top, bottom, right, left*/
+
+

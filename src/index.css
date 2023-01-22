@@ -48,3 +48,9 @@ body{
 .h-100-vh{
   height: 100vh; 
 }
+
+/*Positions */
+
+.position-relative{position: relative;}
+.position-absolute{position: absolute; }
+

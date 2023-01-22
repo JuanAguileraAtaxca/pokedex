@@ -90,8 +90,8 @@ const Card = ({url}) => {
             {imagen ? (<Img lazy="loading" src={imagen} />):( <ImgCarga></ImgCarga>)}
             <ContenedorCaracteristicas>
                 {id && nombre ? (
-                    <NombrePokemon> {`# ${id} ${nombre}`} </NombrePokemon>
-                ) : (
+                    <NombrePokemon> {`# ${id.toString().padStart(3, 0)} ${nombre}`} </NombrePokemon>
+                ):(
                     <>
                         <NombreCarga></NombreCarga>
                         <NombreCarga></NombreCarga>
