@@ -1,7 +1,7 @@
 import {createBrowserRouter} from 'react-router-dom';
 import Public from '../pages/Public';
-import App from '../App';  
-import Pokemon from '../pages/Pokemon'; 
+import Index from '../pages/Index'; 
+import Pokemon, {loaderPokemon} from '../pages/Pokemon'; 
 import ErrorPage from '../pages/ErrorPage';
 
 export const router = createBrowserRouter([
@@ -12,11 +12,12 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true, 
-                element: <App />
+                element: <Index />,
             },
             {
-                path: '/pokemon',
-                element: <Pokemon />
+                path: '/pokemon/:id',
+                element: <Pokemon />,
+                loader: loaderPokemon,
             }
         ]
     }

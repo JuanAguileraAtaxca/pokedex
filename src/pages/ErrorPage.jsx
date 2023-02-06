@@ -31,7 +31,7 @@ const ErrorPage = () => {
                             animation: 'parpadeo '+posicion.tiempo+'s ease-in-out infinite'}} ></div>
             ))}
 
-            <img className='img-error position-absolute' src='public/mew.png' alt='mew'/>
+            <img className='img-error position-absolute' src='/public/mew.png' alt='mew'/>
             
             <div className='error-message'>
                 <div>

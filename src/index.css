@@ -1,5 +1,6 @@
 :root{
   --principal: #EAECEE; 
+  --black: #000;
 }
 
 *{
@@ -12,6 +13,11 @@ body{
   font-family: 'Quicksand', sans-serif;
   font-size: 16px; 
   background-color: var(--principal);
+}
+
+a{
+  text-decoration: none;
+  color: var(--black);
 }
 
 /* Displays*/
@@ -49,6 +55,7 @@ body{
 /*Text*/
 .text-center{text-align: center;}
 .font-weight-700{font-weight: 700;}
+.text-colot-black{color: var(--black)}
 
 /*width y height */
 .h-100-vh{
@@ -62,4 +69,6 @@ body{
 
 /*border*/
 .border-b-1-white{border-bottom: 1px solid white}
+.border-b-2-white{border-bottom: 2px solid white}
+
 

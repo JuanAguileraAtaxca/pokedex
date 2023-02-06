@@ -1,4 +1,5 @@
 import {useState, useEffect} from "react"; 
+import {Link} from 'react-router-dom';
 import {peticionAPI} from "../helpers/index";
 import Tipo from "./Tipo";
 import styled from "@emotion/styled";
@@ -86,20 +87,22 @@ const Card = ({url}) => {
     `;
 
     return (
-        <Contenedor>
-            {imagen ? (<Img lazy="loading" src={imagen} />):( <ImgCarga></ImgCarga>)}
-            <ContenedorCaracteristicas>
-                {id && nombre ? (
-                    <NombrePokemon> {`# ${id.toString().padStart(3, 0)} ${nombre}`} </NombrePokemon>
-                ):(
-                    <>
-                        <NombreCarga></NombreCarga>
-                        <NombreCarga></NombreCarga>
-                    </>
-                )}
-                <Tipo tipos={tipos}/>
-            </ContenedorCaracteristicas>
-        </Contenedor>
+        <Link to={`/pokemon/${id}`}>
+            <Contenedor>
+                {imagen ? (<Img lazy="loading" src={imagen} />):( <ImgCarga></ImgCarga>)}
+                <ContenedorCaracteristicas>
+                    {id && nombre ? (
+                        <NombrePokemon> {`#${id.toString().padStart(3, 0)} ${nombre}`} </NombrePokemon>
+                    ):(
+                        <>
+                            <NombreCarga></NombreCarga>
+                            <NombreCarga></NombreCarga>
+                        </>
+                    )}
+                    <Tipo tipos={tipos} borde={false} />
+                </ContenedorCaracteristicas>
+            </Contenedor>
+        </Link> 
     ); 
 }
 

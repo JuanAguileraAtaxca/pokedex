@@ -1,7 +1,7 @@
 import {colores} from '../helpers'; 
 import styled from "@emotion/styled";
 
-const Tipo = ({tipos}) =>{
+const Tipo = ({tipos, borde}) =>{
 
     const Contenedor = styled.div`
         display: flex; 
@@ -11,6 +11,7 @@ const Tipo = ({tipos}) =>{
     const Texto = styled.p`
         padding: 7px; 
         border-radius: 3px; 
+        border: ${borde ? '2px solid white': 'none'};
         text-align: center; 
         font-size: 14px;
         font-weight: 700; 
