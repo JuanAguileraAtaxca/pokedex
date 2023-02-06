@@ -21,7 +21,7 @@ const Pokemon = () => {
                     }
                 }
             ></div>
-            <div className='pokemon m-c'>
+            <div className='pokemon m-c mt-30'>
                 <div className='flex flex-align-center flex-justify-between'>
                     <h1 className=''> {json.name} </h1>
                     <p className='font-weight-700 pokemon-name'> #{`${json.id.toString().padStart(3,0)}`} </p>
@@ -29,11 +29,11 @@ const Pokemon = () => {
                 <div className='mt-20'>
                     <Tipo tipos={json.types.map(type => type.type.name)} borde={true}/>
                 </div>
-                <div className='flex flex-justify-center mt-10'>
+                <div className='flex flex-justify-center'>
                     <img className='pokemon__img' 
                     src={`${json.sprites.versions['generation-v']['black-white'].animated.front_default}`}/>
                 </div>
-                <div className='mt-20 text-colot-black'>
+                <div className='text-colot-black mt-30'>
                     <p className='text-center p-15 border-b-2-white font-weight-700 flex flex-justify-between'> 
                         Experience: <span>{json.base_experience}</span>
                     </p>

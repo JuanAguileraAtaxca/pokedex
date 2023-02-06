@@ -7,10 +7,9 @@
 .pokemon-name{font-size: 20px;}
 .pokemon__img{
     width: 140px; 
+    margin-top: 20px;
     object-fit: cover;
 }
-
-
 
 @media(min-height: 700px){
     .pokemon__img{
@@ -22,6 +21,17 @@
     .pokemon{
         max-width: 450px;
         margin-top: 40px !important;
+    }
+}
+
+@media(min-height: 1000px){
+    .pokemon__img{
+        width: 210px;
+        margin-top: 60px !important;
+    }
+
+    .pokemon{
+        margin-top: 60px !important;
     }
 }
 
@@ -44,7 +54,6 @@
         font-size: 30px;
     }
 }
-
 
 .pokemon-decoration{
     position: fixed;
