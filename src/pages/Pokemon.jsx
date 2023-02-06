@@ -7,11 +7,6 @@ import {FaAngleLeft} from 'react-icons/fa';
 
 const Pokemon = () => {
     const {json} = useLoaderData(); 
-    useEffect(()=>{
-        console.log(json);
-        console.log(json.types[0].type.name);
-        //console.log(json.sprites.versions['generation-v']['black-white'].animated.front_default);
-    }, []);
 
     return (
         <div className='h-100-vh'>
