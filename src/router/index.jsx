@@ -1,4 +1,4 @@
-import {createBrowserRouter, createHashRouter} from 'react-router-dom';
+import { createHashRouter} from 'react-router-dom';
 import Public from '../pages/Public';
 import Index from '../pages/Index'; 
 import Pokemon, {loaderPokemon} from '../pages/Pokemon'; 

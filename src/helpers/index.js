@@ -1,4 +1,11 @@
-
+/**
+ *  Helper
+ * 
+ *  - 1° método: realiza una petición a una api
+ *  - 2° método: objeto de colores según el tipo 
+ *  de pokemón. 
+ * 
+ */
 export const peticionAPI = async (url) => {
     const respuesta = await fetch(url);
     const json = await respuesta.json(); 
