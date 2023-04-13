@@ -1,11 +1,30 @@
 import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import styled from "@emotion/styled";
+import { css, keyframes } from '@emotion/react'; 
 import "../styles/GenerationMenu.css"; 
 
 const GenerationMenu = () => {
 
     const [clic, setClic] = useState(false); 
+
+    const animation = keyframes`
+        from{
+            left: -100%; 
+        }
+        to{
+            left: 0%; 
+        }
+    `; 
+
+    const animationClose = keyframes`
+        from{
+            left: 0%; 
+        }
+        to{
+            left: -100%; 
+        }
+    `; 
 
     const Container = styled.div`
         background-color: #4034AA; 
@@ -28,11 +47,16 @@ const GenerationMenu = () => {
     `; 
 
     const ContainerOptions = styled.div`
-        display: ${clic ? "flex": "none"}; 
+        position: fixed;
+        width: 100%;  
+        height: 100vh; 
+        background-color: #4034AA; 
+        z-index: 1000; 
+        left: ${ clic ? "0%":"-100%"};
+        animation: ${clic && animation} 1s;
+        display: flex; 
         flex-direction: column; 
         justify-content: center; 
-        align-items: center; 
-        height: 100vh; 
     `; 
 
     const ButtonOption = styled.div`
