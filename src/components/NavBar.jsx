@@ -2,7 +2,7 @@ import { useState } from 'react';
 import '../styles/NavBar.css';
 import {FaSearch} from 'react-icons/fa'; 
 
-const NavBar = ({encabezado, nombrePokemon, setNombrePokemon}) =>{
+const NavBar = ({encabezado}) =>{
     const [nombre, setNombre] = useState('');
     const hadleSubmit = (e) =>{
         e.preventDefault(); 
@@ -15,7 +15,7 @@ const NavBar = ({encabezado, nombrePokemon, setNombrePokemon}) =>{
     return (
         <nav className='navbar mb-30 mt-20 '>
             <h1 className='navbar__h1'>{encabezado}</h1>
-            <form onSubmit={hadleSubmit} className='navbar__form mt-20 mlr-auto flex'>
+            {/**<form onSubmit={hadleSubmit} className='navbar__form mt-20 mlr-auto flex'>
                 <input 
                     type='search' 
                     placeholder='Busquedo por nombre o id'
@@ -24,7 +24,7 @@ const NavBar = ({encabezado, nombrePokemon, setNombrePokemon}) =>{
                     className='navbar__form-input p-15'
                 />
                 <button className='navbar__form-button p-15'><FaSearch /></button>
-            </form>
+            </form>*/}
         </nav>
     );
 }

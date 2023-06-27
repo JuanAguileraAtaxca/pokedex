@@ -33,8 +33,28 @@ function Index() {
   }, [numero]); 
 
   const obtencionDatos = async () => {
-    const resultado = await peticionAPI(`https://pokeapi.co/api/v2/pokemon/?offset=${numero}&limit=15`); 
-    setPokemones(resultado.results); 
+
+    let pokemonesPeticion = []; 
+    for(let i=1; i <= 151; i++){
+      const json = await peticionAPI(`https://pokeapi.co/api/v2/pokemon/${i}`); 
+      //console.log(json); 
+      const p = {
+        id: json.id,
+        name: json.name,
+        base_experience: json.base_experience,
+        height: json.height,
+        weight: json.weight,
+        types: json.types.map(type => type.type["name"]),
+        sprite: json.sprites["front_default"],
+        sprite_animated: json.sprites["versions"]["generation-v"]["black-white"]["animated"]["front_default"],
+      };
+      console.log(p); 
+      pokemonesPeticion = [...pokemonesPeticion, p];
+    }
+    setPokemones(pokemonesPeticion); 
+    console.log(pokemones); 
+
+    
   }
 
   /**
@@ -62,19 +82,16 @@ function Index() {
    */
   return (
     <>
-      {/** 
+      
       <NavBar 
         encabezado="pokedex"
-        nombrePokemon={nombrePokemon}
-        setNombrePokemon={setNombrePokemon}
-      />*/}
-      <GenerationMenu />
+      />
       
-      <Contenedor>
+      {/**<Contenedor>
         {pokemones?.map((pokemon, index) => (
           <Card key={index} url={pokemon.url}/>
         ))}
-      </Contenedor>
+      </Contenedor>*/}
       <ButtonContainer numero={numero} setNumero={setNumero} />
     </>
   ); 
