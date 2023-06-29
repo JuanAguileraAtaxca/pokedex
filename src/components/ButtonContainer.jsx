@@ -1,13 +1,23 @@
 import styled from '@emotion/styled'; 
+import { useState } from 'react';
 import { FaChevronLeft, FaChevronRight, FaAngleDoubleLeft, FaAngleDoubleRight } from 'react-icons/fa'; 
 
-const ButtonContainer = ({numero, setNumero}) =>{
+const ButtonContainer = ({ pagina, setPagina}) =>{
+    const index = () => {
+        setPagina(1);
+    }
+    const lastIndex = () => {
+        setPagina(11); 
+    }
+    const previous = () =>{
+        let n = pagina > 1 ? pagina -1 : 1; 
+        setPagina(n); 
+    }
 
-    const establecer = (a) => setNumero(a);
-
-    const next = () => setNumero(numero < 135 ? numero += 15 : numero); 
-
-    const previous = () => setNumero(numero > 0 ? numero -= 15 : numero);
+    const next = () =>{
+        let n = pagina < 11 ? pagina + 1: 11; 
+        setPagina(n); 
+    }
 
     const ContenedorBotones = styled.div`
         margin-bottom: 20px; 
@@ -35,16 +45,16 @@ const ButtonContainer = ({numero, setNumero}) =>{
 
     return (
         <ContenedorBotones>
-            <Button disabled={numero == 0 ? true :false} onClick={() => establecer(0)} > 
+            <Button onClick={() => index()}> 
                 <FaAngleDoubleLeft /> 
             </Button>
-            <Button disabled={numero == 0 ? true :false} onClick={() => previous()}> 
+            <Button onClick={() => previous()}> 
                 <FaChevronLeft /> 
             </Button>
-            <Button disabled={numero == 135 ? true :false} onClick={() => next()}>
+            <Button onClick={() => next()}>
                 <FaChevronRight /> 
             </Button>
-            <Button disabled={numero == 135 ? true :false} onClick={() => establecer(135)}> 
+            <Button onClick={() => lastIndex()}> 
                 <FaAngleDoubleRight /> 
             </Button>
         </ContenedorBotones>

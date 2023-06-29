@@ -1,18 +1,20 @@
 import { useState, useEffect } from 'react'; 
 import Card from "../components/Card";
 import NavBar from '../components/NavBar';
-import GenerationMenu from '../components/GenerationMenu'; 
 import ButtonContainer from '../components/ButtonContainer'; 
 import {peticionAPI} from '../helpers'; 
 import styled from "@emotion/styled";
 
 function Index() {
   // Declaración de estados
-  const [numero, setNumero] = useState(localStorage.getItem("numero") ?? 0);
-  // const [nombrePokemon, setNombrePokemon] = useState(''); 
-  const [pokemones, setPokemones] = useState([]); 
+  //const [numero, setNumero] = useState(localStorage.getItem("numero") ?? 0);
+  const [pokemones, setPokemones] = useState(JSON.parse(localStorage.getItem("pokemones")) ?? []); 
+  const [pagina, setPagina] = useState(parseInt(localStorage.getItem("pagina")) ?? 1);
+  const [elementos, setElementos] = useState(15);  
 
-  
+  const final = elementos * pagina;
+  const inicio= final - elementos;  
+
   /** 
    * Creación del localStorage
   */
@@ -27,10 +29,17 @@ function Index() {
   useEffect(() => {
     // Petición a la API 
     obtencionDatos(); 
-
     // Guardando datos en el localStorage
-    localStorage.setItem("numero", numero);  
-  }, [numero]); 
+    // localStorage.setItem("numero", numero);  
+  }, []); 
+
+  useEffect(() => {
+    localStorage.setItem("pagina", pagina); 
+  }, [pagina]);
+  
+  useEffect(() => {
+    localStorage.setItem("pokemones", JSON.stringify(pokemones)); 
+  }, [pokemones]); 
 
   const obtencionDatos = async () => {
 
@@ -47,14 +56,13 @@ function Index() {
         types: json.types.map(type => type.type["name"]),
         sprite: json.sprites["front_default"],
         sprite_animated: json.sprites["versions"]["generation-v"]["black-white"]["animated"]["front_default"],
-      };
-      console.log(p); 
+      }
+
       pokemonesPeticion = [...pokemonesPeticion, p];
     }
-    setPokemones(pokemonesPeticion); 
-    console.log(pokemones); 
-
     
+    setPokemones(pokemonesPeticion); 
+
   }
 
   /**
@@ -64,7 +72,7 @@ function Index() {
   const Contenedor = styled.div` 
     max-width: 1000px; 
     width: 80%; 
-    margin: 100px auto 40px; 
+    margin: 50px auto 40px; 
     display: grid; 
     gap: 20px; 
 
@@ -83,16 +91,14 @@ function Index() {
   return (
     <>
       
-      <NavBar 
-        encabezado="pokedex"
-      />
+      <NavBar encabezado="pokedex"/>
       
-      {/**<Contenedor>
-        {pokemones?.map((pokemon, index) => (
-          <Card key={index} url={pokemon.url}/>
+      <Contenedor>
+        {pokemones?.slice(inicio, final).map((p, index) => (
+          <Card key={index} pokemon={p}/>
         ))}
-      </Contenedor>*/}
-      <ButtonContainer numero={numero} setNumero={setNumero} />
+      </Contenedor> 
+      <ButtonContainer pagina={pagina} setPagina={setPagina} />
     </>
   ); 
 }

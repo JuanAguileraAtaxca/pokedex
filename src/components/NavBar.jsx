@@ -13,7 +13,7 @@ const NavBar = ({encabezado}) =>{
     }
 
     return (
-        <nav className='navbar mb-30 mt-20 '>
+        <nav className='navbar mb-30 mt-40 '>
             <h1 className='navbar__h1'>{encabezado}</h1>
             {/**<form onSubmit={hadleSubmit} className='navbar__form mt-20 mlr-auto flex'>
                 <input 

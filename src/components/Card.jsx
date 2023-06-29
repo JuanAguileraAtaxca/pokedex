@@ -5,32 +5,8 @@ import Tipo from "./Tipo";
 import styled from "@emotion/styled";
 
 
-const Card = ({url}) => {
-    const [pokemon, setPokemon] = useState({});
-    const {id, nombre, imagen, tipos} = pokemon; 
-
-    useEffect(() => {
-        const obtencionDatos = async () => {
-            const resultado = await peticionAPI(url); 
-            
-            setPokemon(
-                {
-                    id: resultado.id, 
-                    nombre: resultado.name, 
-                    imagen:resultado.sprites.front_default,
-                    estadisticas: resultado.stats.map(stat => {
-                        return {
-                            estado: stat.base_stat,
-                            nombre: stat.stat.name
-                        }
-                    }),
-                    tipos: resultado.types.map(type => type.type.name),
-                }
-            ); 
-        }
-
-        obtencionDatos(); 
-    }, []); 
+const Card = ({pokemon}) => {
+    const {id, name, sprite, types} = pokemon;  
 
     const Contenedor = styled.div`
         position: relative; 
@@ -42,6 +18,7 @@ const Card = ({url}) => {
         justify-content: space-between; 
         padding: 20px;
         transition: background-color 0.5s ease-in; 
+        box-shadow: 1px 1px 9px rgb(0,0,0,0.5); 
 
         &:hover{
             background-color: #F1F3F3; 
@@ -89,20 +66,21 @@ const Card = ({url}) => {
     return (
         <Link to={`/pokemon/${id}`}>
             <Contenedor>
-                {imagen ? (<Img lazy="loading" src={imagen} />):( <ImgCarga></ImgCarga>)}
+                {sprite ? (<Img lazy="loading" src={sprite} />):( <ImgCarga></ImgCarga>)}
                 <ContenedorCaracteristicas>
-                    {id && nombre ? (
-                        <NombrePokemon> {`#${id.toString().padStart(3, 0)} ${nombre}`} </NombrePokemon>
+                    {id && name ? (
+                        <NombrePokemon> {`#${id.toString().padStart(3, 0)} ${name}`} </NombrePokemon>
                     ):(
                         <>
                             <NombreCarga></NombreCarga>
                             <NombreCarga></NombreCarga>
                         </>
                     )}
-                    <Tipo tipos={tipos} borde={false} />
+                    <Tipo tipos={types} borde={false} />
                 </ContenedorCaracteristicas>
             </Contenedor>
-        </Link> 
+        </Link>
+        
     ); 
 }
 
