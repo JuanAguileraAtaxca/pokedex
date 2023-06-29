@@ -7,10 +7,29 @@
  * 
  */
 export const peticionAPI = async (url) => {
-    const respuesta = await fetch(url);
-    const json = await respuesta.json(); 
+    try{
+
+        const respuesta = await fetch(url);
+        const json = await respuesta.json(); 
+
+        return construirObjeto(json); 
     
-    return json; 
+    } catch(e){
+        console.log(e); 
+    } 
+}
+
+export const construirObjeto = (json) => {
+    return {
+        id: json.id,
+        name: json.name,
+        base_experience: json.base_experience,
+        height: json.height,
+        weight: json.weight,
+        types: json.types.map(type => type.type["name"]),
+        sprite: json.sprites["front_default"],
+        sprite_animated: json.sprites["versions"]["generation-v"]["black-white"]["animated"]["front_default"],
+    }
 }
 
 export const colores = {

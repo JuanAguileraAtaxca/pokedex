@@ -6,10 +6,10 @@ import {peticionAPI} from '../helpers';
 import styled from "@emotion/styled";
 
 function Index() {
-  // Declaración de estados
-  //const [numero, setNumero] = useState(localStorage.getItem("numero") ?? 0);
+  // Declaración de estados y constantes  
   const [pokemones, setPokemones] = useState(JSON.parse(localStorage.getItem("pokemones")) ?? []); 
-  const [pagina, setPagina] = useState(parseInt(localStorage.getItem("pagina")) ?? 1);
+  const [busqueda, setBusqueda] = useState(localStorage.getItem("busqueda") ?? ""); 
+  const [pagina, setPagina] = useState(localStorage.getItem("pagina") ?? 1);
   const [elementos, setElementos] = useState(15);  
 
   const final = elementos * pagina;
@@ -20,7 +20,7 @@ function Index() {
   */
   /**
    * UseEffect escuchando los cambios
-   * de "numero"
+   * de "pagina" y "pokemones"
    * 
    * Operaciones: 
    *  - Solicitud de datos
@@ -29,35 +29,33 @@ function Index() {
   useEffect(() => {
     // Petición a la API 
     obtencionDatos(); 
-    // Guardando datos en el localStorage
-    // localStorage.setItem("numero", numero);  
   }, []); 
 
   useEffect(() => {
+    localStorage.setItem("busqueda", busqueda); 
+    setPagina(1); 
+  }, [busqueda]);
+
+  useEffect(() => {
+    // se guardan la pagina actual en el 
+    // localStorage
     localStorage.setItem("pagina", pagina); 
   }, [pagina]);
   
   useEffect(() => {
+    // se guardan los datos de los pokemones 
+    // en el localStorage
     localStorage.setItem("pokemones", JSON.stringify(pokemones)); 
   }, [pokemones]); 
 
   const obtencionDatos = async () => {
 
     let pokemonesPeticion = []; 
+    // se solicitan los datos de los pokemones de la 
+    // primera generación
     for(let i=1; i <= 151; i++){
-      const json = await peticionAPI(`https://pokeapi.co/api/v2/pokemon/${i}`); 
-      //console.log(json); 
-      const p = {
-        id: json.id,
-        name: json.name,
-        base_experience: json.base_experience,
-        height: json.height,
-        weight: json.weight,
-        types: json.types.map(type => type.type["name"]),
-        sprite: json.sprites["front_default"],
-        sprite_animated: json.sprites["versions"]["generation-v"]["black-white"]["animated"]["front_default"],
-      }
-
+      const p = await peticionAPI(`https://pokeapi.co/api/v2/pokemon/${i}`); 
+      // se agrega el objeto al arreglo
       pokemonesPeticion = [...pokemonesPeticion, p];
     }
     
@@ -91,12 +89,12 @@ function Index() {
   return (
     <>
       
-      <NavBar encabezado="pokedex"/>
+      <NavBar encabezado="pokedex" busqueda={busqueda} setBusqueda={setBusqueda}/>
       
       <Contenedor>
-        {pokemones?.slice(inicio, final).map((p, index) => (
+        {pokemones?.filter(p => p.name.startsWith(busqueda)).map((p, index) => (
           <Card key={index} pokemon={p}/>
-        ))}
+        )).slice(inicio, final)}
       </Contenedor> 
       <ButtonContainer pagina={pagina} setPagina={setPagina} />
     </>

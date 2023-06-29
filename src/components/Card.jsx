@@ -1,6 +1,4 @@
-import {useState, useEffect} from "react"; 
 import {Link} from 'react-router-dom';
-import {peticionAPI} from "../helpers/index";
 import Tipo from "./Tipo";
 import styled from "@emotion/styled";
 
