@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'; 
+import { useState, useEffect } from 'react';
+import Loading from "../components/Loading";  
 import Card from "../components/Card";
 import NavBar from '../components/NavBar';
 import ButtonContainer from '../components/ButtonContainer'; 
@@ -11,6 +12,8 @@ function Index() {
   const [busqueda, setBusqueda] = useState(localStorage.getItem("busqueda") ?? ""); 
   const [pagina, setPagina] = useState(localStorage.getItem("pagina") ?? 1);
   const [elementos, setElementos] = useState(15);  
+  const [cargado, setCargado] = useState(localStorage.getItem("cargado") ?? false); 
+  const [longitud, setLongitud] = useState(0); 
 
   const final = elementos * pagina;
   const inicio= final - elementos;  
@@ -31,21 +34,30 @@ function Index() {
     obtencionDatos(); 
   }, []); 
 
-  useEffect(() => {
-    localStorage.setItem("busqueda", busqueda); 
-    setPagina(1); 
-  }, [busqueda]);
 
   useEffect(() => {
     // se guardan la pagina actual en el 
     // localStorage
     localStorage.setItem("pagina", pagina); 
   }, [pagina]);
+
+  useEffect(() => {
+    localStorage.setItem("longitud", longitud); 
+  }, [longitud]);
+
+  useEffect(() => {
+    localStorage.setItem("busqueda", busqueda); 
+    setPagina(1); 
+    let maximo = pokemones.filter(p => p.name.startsWith(busqueda) || p.id.toString().startsWith(busqueda)).map(x => x).length; 
+    setLongitud(maximo); 
+  }, [busqueda]);
+
   
   useEffect(() => {
     // se guardan los datos de los pokemones 
     // en el localStorage
     localStorage.setItem("pokemones", JSON.stringify(pokemones)); 
+    localStorage.setItem("cargado", cargado); 
   }, [pokemones]); 
 
   const obtencionDatos = async () => {
@@ -60,7 +72,8 @@ function Index() {
     }
     
     setPokemones(pokemonesPeticion); 
-
+    setLongitud(pokemonesPeticion.length);
+    setCargado(true); 
   }
 
   /**
@@ -88,15 +101,15 @@ function Index() {
    */
   return (
     <>
-      
+      <Loading cargado={cargado}/>
       <NavBar encabezado="pokedex" busqueda={busqueda} setBusqueda={setBusqueda}/>
       
       <Contenedor>
-        {pokemones?.filter(p => p.name.startsWith(busqueda)).map((p, index) => (
+        {pokemones?.filter(p => p.name.startsWith(busqueda) || p.id.toString().startsWith(busqueda)).map((p, index) => (
           <Card key={index} pokemon={p}/>
         )).slice(inicio, final)}
       </Contenedor> 
-      <ButtonContainer pagina={pagina} setPagina={setPagina} />
+      <ButtonContainer pagina={pagina} setPagina={setPagina} longitud={longitud}/>
     </>
   ); 
 }

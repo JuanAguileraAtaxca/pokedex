@@ -9,7 +9,7 @@ const NavBar = ({encabezado, busqueda, setBusqueda}) =>{
     }
 
     const hadleChange = (e) => {
-        setBusqueda(e.target.value); 
+        setBusqueda(e.target.value.toLowerCase()); 
     }
 
     return (

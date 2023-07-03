@@ -2,12 +2,13 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import { FaChevronLeft, FaChevronRight, FaAngleDoubleLeft, FaAngleDoubleRight } from 'react-icons/fa'; 
 
-const ButtonContainer = ({ pagina, setPagina}) =>{
+const ButtonContainer = ({ pagina, setPagina, longitud}) =>{
+    const limite = Math.ceil(longitud / 15); 
     const index = () => {
         setPagina(1);
     }
     const lastIndex = () => {
-        setPagina(11); 
+        setPagina(limite); 
     }
     const previous = () =>{
         let n = pagina > 1 ? pagina -1 : 1; 
@@ -15,7 +16,7 @@ const ButtonContainer = ({ pagina, setPagina}) =>{
     }
 
     const next = () =>{
-        let n = pagina < 11 ? pagina + 1: 11; 
+        let n = pagina < limite ? pagina + 1: limite; 
         setPagina(n); 
     }
 
