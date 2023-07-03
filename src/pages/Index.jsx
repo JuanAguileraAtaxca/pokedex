@@ -80,18 +80,22 @@ function Index() {
    * Styled components
    */
 
-  const Contenedor = styled.div` 
+  const Main = styled.div` 
     max-width: 1000px; 
     width: 80%; 
-    margin: 50px auto 40px; 
-    display: grid; 
-    gap: 20px; 
+    margin: 50px auto 40px;
 
+  `;
+
+  const MainPokemon = styled.div`
+    width: 100%; 
+    display: grid; 
+    gap: 18px; 
 
     @media(min-width: 380px){
       grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
     }
-  `;
+  `; 
 
   /**
    * Creación del componente:
@@ -104,11 +108,26 @@ function Index() {
       <Loading cargado={cargado}/>
       <NavBar encabezado="pokedex" busqueda={busqueda} setBusqueda={setBusqueda}/>
       
-      <Contenedor>
-        {pokemones?.filter(p => p.name.startsWith(busqueda) || p.id.toString().startsWith(busqueda)).map((p, index) => (
-          <Card key={index} pokemon={p}/>
-        )).slice(inicio, final)}
-      </Contenedor> 
+      <Main>
+        {longitud > 0 ? (
+          <MainPokemon>
+            {pokemones?.filter(p => p.name.startsWith(busqueda) || p.id.toString().startsWith(busqueda)).map((p, index) => (
+              <Card key={index} pokemon={p}/>
+            )).slice(inicio, final)}
+          </MainPokemon>
+        ):(
+          <p style={
+            {
+              textAlign: "center", 
+              fontSize: "20px", 
+              fontWeight: 700, 
+              marginTop: "80px",
+              marginBottom: "80px"
+            }
+          }> No se encontró ningún pokemon</p>
+        )}
+      </Main>
+       
       <ButtonContainer pagina={pagina} setPagina={setPagina} longitud={longitud}/>
     </>
   ); 
