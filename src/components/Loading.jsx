@@ -27,7 +27,7 @@ const Loading = ({cargado}) => {
     `;
     return (
         <Main>
-            <Imagen src="/public/run-pikachu.gif"/>
+            <Imagen src="https://media.tenor.com/2lFt6lp1KaMAAAAi/run-pokemon.gif"/>
         </Main>
     ); 
 }
